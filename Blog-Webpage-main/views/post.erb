@@ -1,0 +1,48 @@
+<%= erb :"common/header" %>
+        
+        <main>
+            <% @posts.each do |post| %>
+                <table class="post-table">
+                    <tr>
+                        <th class="title"><h1><%= post[:title] %></h1></th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p class="details">
+                                <span class="left">By: <%= post[:userID] %></span>
+                                <span class="right"><%= post[:organization] %></span>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="content"><%= post[:content] %></td>
+                        <br>
+                    </tr>
+                </table>
+                
+                  <% if (post[:UserID] == getUserName() || getUserType() >= 3) %>
+                    <a href="/edit_post?id=<%= post[:id] %>">Edit Post</a>
+                  <% end %>
+                  <br>
+                  <% if getUserType() >= 3 %>   
+                    <% if post[:suspended] == 0 %>
+                      <form action="/hide_post" method="post">
+                          <input type="hidden" id="post_id" name="post_id" value="<%= post[:id] %>">
+                          <input type="submit" id="hide_post" value="Hide">
+                      </form>
+                    <% elsif post[:suspended] == 1 %>
+                      <form action="/recover_post" method="post">
+                          <input type="hidden" id="post_id" name="post_id" value="<%= post[:id] %>">
+                          <input type="submit" id="recover_post" value="Recover">
+                      </form>
+                    <% end %>
+                  <% end %>
+            <% end %>
+        </main>
+
+
+    </div>
+
+<%= erb :"common/footer" %>

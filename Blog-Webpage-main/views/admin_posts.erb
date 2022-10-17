@@ -1,0 +1,90 @@
+<%= erb :"common/header" %>
+        
+        <main>
+            <div>
+                <form action="/filter_posts" method="post">
+                    <label for="filter_table">Choose the table: </label>
+                    <select name="filter_table" id="filter_table">
+                      <option value="approve">Approve/Reject</option>
+                      <option value="hidden">Hidden</option>
+                    </select>
+
+                    <br>              
+
+                    <label for="filter_type">Choose a usertype: </label>
+                    <select name="filter_type" id="filter_type">
+                      <option value="all">All</option>
+                      <option value="guest">Guest</option>
+                      <option value="reporter">Reporter</option>
+                      <option value="viewer">Viewer</option>
+                      <option value="moderator">Moderator</option>
+                      <option value="administrator">Administrator</option>
+                    </select>
+
+                    <br>
+
+                    <input type="submit" id="submit-type" value="Search">
+                </form>
+                <br>
+                <table class="posts">
+                    <tr class="adminTable">
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Organization</th>
+                        <th>Body</th>
+                        <th>Author</th>
+                        <th>UserType</th>
+                        <th>Options</th>
+                    </tr>
+
+                    <% Post.each do |post| %>
+                        <% if ( @filter_table == "approve" && post.approved == 0) || (@filter_table == "hidden" && post.suspended == 1) || (@filter_table == nil && post.approved == 0)%>
+                          <% if ((post[:userType] == @filter_userType)) || ((@filter_userType == "ALL") || (@filter_userType == nil)) %>
+                            <tr>
+                                <td><%= post[:id]%></td>
+                                <td><%= post[:title]%></td>
+                                <td><%= post[:organization]%></td>
+                                <td><%= post[:content]%></td>
+                                <td><%= post[:userID]%></td>
+                                <td><%= post[:userType]%></td>
+
+                                <td>
+                                <% if (@filter_table == "approve" || @filter_table == nil) %>
+                                  <form action="/approve_post" method="post">
+                                      <input type="hidden" id="post_id" name="post_id" value="<%= post[:id] %>">
+                                      <input type="submit" id="approvePost" value="Approve">
+                                  </form>
+
+                                  <form action="/reject_post" method="post">
+                                      <input type="hidden" id="post_id" name="post_id" value="<%= post[:id] %>">
+                                      <input type="submit" id="rejectPost" value="Reject">
+                                  </form>
+                                <% end %>
+
+                                <% if @filter_table == "hidden" %>
+                                    <% if post[:suspended] == 0 %>
+                                      <form action="/hide_post" method="post">
+                                          <input type="hidden" id="post_id" name="post_id" value="<%= post[:id] %>">
+                                          <input type="submit" id="hide_post" value="Hide">
+                                      </form>
+                                    <% elsif post[:suspended] == 1 %>
+                                      <form action="/recover_post" method="post">
+                                          <input type="hidden" id="post_id" name="post_id" value="<%= post[:id] %>">
+                                          <input type="submit" id="recover_post" value="Recover">
+                                      </form>
+                                  <% end %>
+                                <% end %>
+
+                                <a href="/edit_post?id=<%= post.id %>">Edit Post</a>
+                                </td>
+                            </tr>
+                          <% end %>
+                        <% end %>
+                    <% end %> 
+                </table>
+            </div>
+        </main>
+
+    </div>
+
+<%= erb :"common/footer" %>

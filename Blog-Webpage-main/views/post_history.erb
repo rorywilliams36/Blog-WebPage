@@ -1,0 +1,32 @@
+<%= erb :"common/header" %>
+
+<main>
+    <div>
+        <% @users.each do |user| %>
+        <h2><%= user[:username] %>'s Posts:</h2>
+            <% Post.reverse_each do |post| %>
+                <% if post.userID == user[:username] %>
+                    <table class="post-table">
+                        <tr>
+                            <th class="title"><a href="post?id=<%= post.id %>"><h1><%= post.title %></h1></a></th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p class="details">
+                                    <span class="left">By: <%= post.userID %></span>
+                                    <span class="right"><%= post.organization %></span>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</main>
+
+
+</div>
+
+<%= erb :"common/footer" %>

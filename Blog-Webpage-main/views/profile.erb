@@ -1,0 +1,41 @@
+<%= erb :"common/header" %>
+        
+        <main>
+            <div>
+            <br>
+                <table class="profile">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Date of Birth</th>
+                        <th>University</th>
+                        <th>Usertype</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                    </tr>
+                    <% @users.each do |user| %>
+                    <p><h1><%= user[:username]%>'s Profile</h1><a href="/logout">(logout)</a></p>
+                    <tr>
+                      <td><%= user[:title] + " " + user[:firstName] + " " + user[:surname]%></td>
+                      <td><%= user[:dateOfBirth]%></td>
+                      <td><%= user[:university]%></td>
+                      <td><%= user[:userType]%></td>
+                      <td><%= user[:phoneNumber]%></td>
+                      <td><%= user[:email]%></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/edit/name?id=<%= session[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/dateOfBirth?id=<%= session[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/university?id=<%= session[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/userType?id=<%= session[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/phoneNumber?id=<%= session[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/email?id=<%= session[:userID]%>">Edit</a></td>
+                    </tr>
+                    <a href="post_history?id=<%= user[:userID] %>">View post history</a>
+                    <% end %> 
+                </table>
+            </div>
+        </main>
+
+    </div>
+
+<%= erb :"common/footer" %>

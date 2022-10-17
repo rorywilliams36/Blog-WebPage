@@ -1,0 +1,45 @@
+<%= erb :"common/header" %>
+
+        <main>
+            <div>
+                <h2>Recent Posts:</h2>
+
+                <p><form action="/filter_org" method="post">
+                    <label for="filter_org">Filter by organization:</label>
+                    <input type="text" id="filter_org" name="filter_org">
+                    <input type="submit" id="submit-type" value="Search">
+                </form>
+
+                <% if (@filter_posts != nil && @filter_posts != "") %>
+                <form action="/reset_filters" method="post">
+                    <input type="submit" id="submit-type" value="Reset">
+                </form>
+                <% end %></p>
+
+                <% Post.reverse_each do |post| %>
+                  <% if (post.organization == @filter_posts || @filter_posts == nil || @filter_posts == "") %>
+                    <% if post.approved == 1 && post.suspended == 0 %>
+                        <table class="post-table">
+                            <tr>
+                                <th class="title"><a href="post?id=<%= post.id %>"><h1><%= post.title %></h1></a></th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p class="details">
+                                        <span class="left">By: <%= post.userID %></span>
+                                        <span class="right"><%= post.organization %></span>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    <% end %>
+                  <% end %>
+                <% end %>
+            </div>
+        </main>
+
+
+    </div>
+
+<%= erb :"common/footer" %>

@@ -1,0 +1,44 @@
+<%= erb :"common/header" %>
+
+        <main>
+            <div id="blog-page">
+                <h2>Edit Post Here:</h2>
+                <form method="post" action="/edit_posts">
+                    <input type="hidden" name="id" value="<%= @post.id %>" />
+
+                    <p><label for="post_title">Title:</label></p>
+                    <p><input type="text" id="post_title" name="post_title" value="<%= @post.title%>"required></p>
+                    <% if @post.errors.include?("title")%>
+                      <% @post.errors["title"].each do |error|%>
+                        <p class="error">Title <%= error %></p>
+                      <% end %>
+                    <% end %>
+
+
+                    <p><label for="post_organization">Organization:</label></p>
+                    <p><input type="text" id="post_organization" name="post_organization" value="<%= @post.organization%>"required></p>
+                    <% if @post.errors.include?("organization")%>
+                      <% @post.errors["organization"].each do |error|%>
+                        <p class="error">Organization <%= error %></p>
+                      <% end %>
+                    <% end %>
+
+                    <p><label for="post_content">Body:</label></p>    
+                    <p>
+                        <textarea id="post_content" name="post_content" cols="200" rows="15" required><%= @post.content%></textarea>
+                    </p>
+                    <% if @post.errors.include?("content")%>
+                      <% @post.errors["content"].each do |error|%>
+                        <p class="error">Content <%= error %></p>
+                      <% end %>
+                    <% end %>
+
+                    <p><input type="submit" id="save_button" value="Save"></p>
+                    <p><input type="button" id="back_button" value="Cancel" onclick="history.back()"></p>
+                </form>
+            </div>
+        </main>
+
+    </div>
+
+<%= erb :"common/footer" %>        

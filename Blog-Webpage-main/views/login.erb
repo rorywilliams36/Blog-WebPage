@@ -1,0 +1,53 @@
+<%= erb :"common/header" %>
+ 
+        <main>
+          <div class="login-page">
+              <h2>Login</h2>
+                <% if @submitted %>
+                    <% if @msg %>
+                            <p><strong class="error"><%= @msg %></strong></p>       
+                    <% end %>
+                <% end %>
+                
+              <form action="/login_input" method="post">
+                  <label for="username">Username:</label>
+                  <input type="text" id="username" name="username" required> 
+
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" name="password" required>
+
+                  <input type="submit" id="submit-button" value="Submit">
+                  <br><br>
+              </form>
+
+              <p>If you don't have an account <a href="register">sign up here</a></p>
+          </div>
+        </main>
+
+
+    </div>
+    <footer>
+        <p><b>ACME</b>, a fictitious website by Group 1</p>
+    </footer>
+</body>
+</html>
+
+<%
+=begin %>
+ Database code
+<%
+while login = false;
+    get login
+    SELECT * FROM users WHERE email = email AND password = password
+
+When signing up
+
+*some code to check the user doesn't already exist
+
+INSERT INTO users VALUES{id, title/gender, firstname, surname, username, Date-Of-Birth,
+                            , email, phone-number, University, User-Type, password} */
+%>
+<% 
+=end %>
+
+</html>

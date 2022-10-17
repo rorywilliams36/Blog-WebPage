@@ -1,0 +1,52 @@
+<%= erb :"common/header" %>
+        
+        <main>
+            <div>
+                <table class="profile">
+                    <tr>
+                        <th>Username</th>
+                        <th>Title</th>
+                        <th>First Name</th>
+                        <th>Surname</th>
+                        <th>Date of Birth</th>
+                        <th>University</th>
+                        <th>Usertype</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Options</th>
+                    </tr>
+                    <% @users.each do |user| %>
+                        <tr class="adminTable">
+                            <td><%= user[:username]%></td>
+                            <td><%= user[:title]%></td>
+                            <td><%= user[:firstName]%></td>
+                            <td><%= user[:surname]%></td>
+                            <td><%= user[:dateOfBirth]%></td>
+                            <td><%= user[:university]%></td>
+                            <td><%= user[:userType]%></td>
+                            <td><%= user[:phoneNumber]%></td>
+                            <td><%= user[:email]%></td>
+                            <td>
+                                <form action="/suspenduser" method="post">
+                                    <%
+                                    if user[:suspended] == 1
+                                        @suspended = "Unsuspend"
+                                    else
+                                        @suspended = "Suspend"
+                                    end
+                                    %>
+                                    <input name="suspendID" type="textarea" value="<%= user[:userID] %>" hidden>
+                                    <input name="suspendButton" type="submit" value="<%=@suspended%>">
+                                </form>
+                                <a href="adminedit?id=<%= user[:userID] %>">Edit</a>
+                                <br>
+                                <a href="post_history?id=<%= user[:userID] %>">Posts</a>
+                            </td>
+                        </tr>
+                    <% end %> 
+                </table>
+            </div>
+        </main>
+    </div>
+
+<%= erb :"common/footer" %>

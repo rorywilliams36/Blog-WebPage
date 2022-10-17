@@ -1,0 +1,17 @@
+<%= erb :"common/header" %>
+        
+        <main>
+            <div>
+                <h2><a href="/admin_posts">Posts</a>  
+                
+                <% if getUserType() == 4 %>   
+                    or <a href="/admin_users">Users</a>
+                <% end %>
+
+                </h2>
+            </div>
+        </main>
+
+    </div>
+
+<%= erb :"common/footer" %>

@@ -1,0 +1,38 @@
+<%= erb :"common/header" %>
+        
+        <main>
+            <div>
+            <br>
+                <table class="profile">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Date of Birth</th>
+                        <th>University</th>
+                        <th>Usertype</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                    </tr>
+                    <p><h1><%= @targetUser[:username]%>'s Record</h1></p>
+                    <tr>
+                      <td><%= @targetUser[:title] + " " + @targetUser[:firstName] + " " + @targetUser[:surname]%></td>
+                      <td><%= @targetUser[:dateOfBirth]%></td>
+                      <td><%= @targetUser[:university]%></td>
+                      <td><%= @targetUser[:userType]%></td>
+                      <td><%= @targetUser[:phoneNumber]%></td>
+                      <td><%= @targetUser[:email]%></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/edit/name?id=<%= @targetUser[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/dateOfBirth?id=<%= @targetUser[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/university?id=<%= @targetUser[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/userType?id=<%= @targetUser[:userID]%>">Edit</a></td>
+                        <td><a href="/edit/phoneNumber?id=<%= @targetUser[:userID]%>">Edit</a></td>
+                        <td><a href="edit/email?id=<%= @targetUser[:userID]%>">Edit</a></td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+
+    </div>
+
+<%= erb :"common/footer" %>
